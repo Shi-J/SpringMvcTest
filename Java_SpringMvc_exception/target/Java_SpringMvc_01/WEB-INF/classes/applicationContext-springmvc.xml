@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+
+    <context:component-scan base-package="com.stone.mvc"/>
+
+
+    <!--    配置视图解析器 InternalResourceViewResolver-->
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--    prefix配置前置  -->
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <!--    suffix配置后置  -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--  springmvc 高级注解驱动  -->
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven/>
+
+    <!--    配置异常信息处理SimpleMappingExceptionResolver    -->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!--    exceptionMappings配置哪些异常去那些页面    -->
+        <property name="exceptionMappings">
+            <props>
+                <!--    key指定异常类型（全类名） value要去的页面视图名    -->
+                <prop key="java.lang.NullPointerException">myexcepton</prop>
+            </props>
+        </property>
+
+        <!--    指定错误信息时保证的key 默认为exception -->
+        <property name="exceptionAttribute" value="ex">
+        </property>
+
+
+    </bean>
+
+
+</beans>
